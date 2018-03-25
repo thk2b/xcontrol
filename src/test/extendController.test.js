@@ -42,29 +42,29 @@ test('extending Controller with async actions', t => {
 })
 
 test('calling another controller\'s actions', t => {
-    class C1 extends Controller {
-        set(value){
-            this.state = value
+    class Value extends Controller {
+        set(val){
+            this.state = val
         }
     }
-    const c1 = new C1()
-    const c1Cb = sinon.spy()
-    c1.subscribe(c1Cb)
+    const value = new Value()
+    const valueCb = sinon.spy()
+    value.subscribe(valueCb)
 
-    class C2 extends Controller {
-        setAndHaveSideEffects(value){
-            c1.set(value)
-            this.state = value
+    class UpperCaseValue extends Controller {
+        setToUpperCaseAndHaveSideEffects(val){
+            value.set(val)
+            this.state = val.toUpperCase()
         }
     }
-    const c2 = new C2()
-    const c2Cb = sinon.spy()
-    c2.subscribe(c2Cb)
+    const upperValue = new UpperCaseValue()
+    const upperValueCb = sinon.spy()
+    upperValue.subscribe(upperValueCb)
 
-    const value = 'test value'
-    c2.setAndHaveSideEffects(value)
+    const testValue = 'test value'
+    upperValue.setToUpperCaseAndHaveSideEffects(testValue)
 
-    t.ok(c2Cb.calledWith(value))
-    t.ok(c1Cb.calledWith(value))
+    t.ok(upperValueCb.calledWith(testValue.toUpperCase()), 'should notify subscriber with own state')
+    t.ok(valueCb.calledWith(testValue), 'should have notified the other controller\'s subscribers')
     t.end()
 })
