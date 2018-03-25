@@ -1,0 +1,30 @@
+{
+  "name": "flux",
+  "version": "0.0.0",
+  "description": "A flux implementation",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thk2b/flux.git"
+  },
+  "keywords": [
+    "flux"
+  ],
+  "author": "thk2b",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thk2b/flux/issues"
+  },
+  "homepage": "https://github.com/thk2b/flux#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-tape-runner": "^2.0.1",
+    "faucet": "0.0.1",
+    "tape": "^4.9.0"
+  }
+}
