@@ -3,7 +3,7 @@ import sinon from 'sinon'
 import { Controller } from '../'
 
 test('constructor', t => {
-    const c = new Controller('test')
+    const c = new Controller()
     t.ok(typeof c.subscribe === 'function')
     t.end()
 })
