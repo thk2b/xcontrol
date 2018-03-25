@@ -8,19 +8,34 @@ test('constructor', t => {
     t.end()
 })
 
-test('subscribing to state updates', t => {
-    const _ = new Controller()
-    const c = new Controller()
+test('getting the state', t => {
     const value = 'test'
+    const c = new Controller(value)
 
-    _.subscribe(() => t.fail('should not notify other controllers'))
-    const callback = sinon.spy()
-    c.subscribe(callback)
-    
-    c.state = value
-    t.ok(callback.called)
+    t.ok(c.state === 'test')
+
     t.end()
 })
+
+test('subscribing to state updates', t => {
+    const c = new Controller()
+    const callback1 = sinon.spy()    
+    c.subscribe(callback1)
+    const callback2 = sinon.spy()    
+    c.subscribe(callback2)
+
+    const other = new Controller()
+    const innocentCallback = sinon.spy()
+    other.subscribe(innocentCallback)
+    
+    const value = 'test'
+
+    c.state = value
+    t.ok(callback1.calledWith(value) && callback2.calledWith(value), 'should have notified subscribers with the new state')
+    t.ok(!innocentCallback.called, 'should not have notified other controllers')
+    t.end()
+})
+
 test('unsubscribing from state updates', t => {
     const c = new Controller()
     const value = 'test'
@@ -38,14 +53,5 @@ test('unsubscribing from state updates', t => {
 
     c.state = newValue
     t.ok(callback.calledOnce)
-    t.end()
-})
-
-test('getting the state', t => {
-    const value = 'test'
-    const c = new Controller(value)
-
-    t.ok(c.state === 'test')
-
     t.end()
 })
