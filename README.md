@@ -5,10 +5,10 @@ A lightweight flux interpretation.
 
 `controlx` is a flux interpretation powered by four core constructs:
 
-- models
-- controllers
-- subscribers
-- actions
+- 💾 models
+- 🎮 controllers
+- 📡 subscribers
+- 💥 actions
 
 Models store the state. They allow reading and writing the state.
 
