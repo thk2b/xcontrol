@@ -1,5 +1,6 @@
 import test from 'tape'
 import sinon from 'sinon'
+
 import { Controller } from '../'
 
 test('constructor', t => {
