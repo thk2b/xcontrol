@@ -10,11 +10,17 @@ test('constructor', t => {
 })
 
 test('subscribing to state updates', t => {
-    const c = new Controller()
+    const initialState = 'initial state'
+    const c = new Controller(initialState)
     const callback1 = sinon.spy()    
     c.subscribe(callback1)
     const callback2 = sinon.spy()    
     c.subscribe(callback2)
+
+    t.ok(callback1.calledOnceWith(initialState) &&
+        callback2.calledOnceWith(initialState),
+        'should immediately notify subscribers'
+    )
 
     const other = new Controller()
     const innocentCallback = sinon.spy()
@@ -24,7 +30,7 @@ test('subscribing to state updates', t => {
 
     c.state = value
     t.ok(callback1.calledWith(value) && callback2.calledWith(value), 'should have notified subscribers with the new state')
-    t.ok(!innocentCallback.called, 'should not have notified other controllers')
+    t.ok(innocentCallback.callCount === 1, 'should not have notified other controllers')
     t.end()
 })
 
@@ -60,11 +66,11 @@ test('unsubscribing from state updates', t => {
 
     c.state = newValue
 
-    t.ok(callback.calledOnce)
-    t.ok(callback1.calledTwice)
-    t.ok(callback2.calledOnce)
-    t.ok(callback3.calledTwice)
-    t.ok(callback4.calledOnce)
+    t.ok(callback.calledTwice)
+    t.ok(callback1.calledThrice)
+    t.ok(callback2.calledTwice)
+    t.ok(callback3.calledThrice)
+    t.ok(callback4.calledTwice)
     t.end()
 })
 
@@ -120,7 +126,8 @@ test('causing actions asynchronously', t => {
     setTimeout(() => v.set(value), 0)
 
     setTimeout(() => {
-        t.ok(callback.calledOnceWith(value))
+        t.ok(callback.callCount === 2)
+        t.ok(callback.calledWith(value))
         t.end()
     }, 1)
 
