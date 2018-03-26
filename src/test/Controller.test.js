@@ -36,22 +36,42 @@ test('subscribing to state updates', t => {
 })
 
 test('unsubscribing from state updates', t => {
+    /* In this test, we subscribe 5 times. 
+    ** The first 4 times, we catch the first state update.
+    ** We then unsubscribe 2 subscribers and subscribe a fith one.
+    ** We cause a final state update for the remaining 3 subscribers. 
+    */
     const c = new Controller()
     const value = 'test'
     const newValue = 'new test'
 
     const callback = sinon.spy()
+    const callback1 = sinon.spy()
+    const callback2 = sinon.spy()
+    const callback3 = sinon.spy()
+    const callback4 = sinon.spy()
     
     const unsubscribe = c.subscribe(callback)
     t.ok(typeof unsubscribe === 'function', 'should return a function')
+    const unsubscribe1 = c.subscribe(callback1)
+    const unsubscribe2 = c.subscribe(callback2)
+    const unsubscribe3 = c.subscribe(callback3)
     
     c.state = value
     
     const didUnsubscribe = unsubscribe()
     t.ok(didUnsubscribe, 'should return true when the subscriber is removed')
+    unsubscribe2()
+
+    const unsubscribe4 = c.subscribe(callback4)    
 
     c.state = newValue
+
     t.ok(callback.calledOnce)
+    t.ok(callback1.calledTwice)
+    t.ok(callback2.calledOnce)
+    t.ok(callback3.calledTwice)
+    t.ok(callback4.calledOnce)
     t.end()
 })
 
