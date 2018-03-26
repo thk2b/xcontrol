@@ -9,14 +9,6 @@ test('constructor', t => {
     t.end()
 })
 
-test('getting the state', t => {
-    const value = 'test'
-    const c = new Controller(value)
-    t.equal(c._state, value)
-
-    t.end()
-})
-
 test('subscribing to state updates', t => {
     const c = new Controller()
     const callback1 = sinon.spy()    
