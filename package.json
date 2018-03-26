@@ -1,6 +1,6 @@
 {
   "name": "controlx",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A flux implementation",
   "main": "lib/index.js",
   "scripts": {
@@ -14,7 +14,11 @@
     "url": "git+https://github.com/thk2b/controlx.git"
   },
   "keywords": [
-    "flux", "controller", "model", "state", "action"
+    "flux",
+    "controller",
+    "model",
+    "state",
+    "action"
   ],
   "author": "thk2b",
   "license": "MIT",
