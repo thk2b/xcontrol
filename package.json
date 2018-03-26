@@ -1,5 +1,5 @@
 {
-  "name": "flux",
+  "name": "controlx",
   "version": "0.0.0",
   "description": "A flux implementation",
   "main": "lib/index.js",
@@ -11,17 +11,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thk2b/flux.git"
+    "url": "git+https://github.com/thk2b/controlx.git"
   },
   "keywords": [
-    "flux"
+    "flux", "controller", "model", "state", "action"
   ],
   "author": "thk2b",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/thk2b/flux/issues"
+    "url": "https://github.com/thk2b/controlx/issues"
   },
-  "homepage": "https://github.com/thk2b/flux#readme",
+  "homepage": "https://github.com/thk2b/controlx#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
