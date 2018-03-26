@@ -6,6 +6,9 @@ export default class Controller extends Model {
         this._nextSubscriberId = 0
         this._subscribers = {}
     }
+    get state(){
+        return super.state
+    }
     get nextSubscriberId(){
         return ++this._nextSubscriberId
     }
@@ -15,7 +18,7 @@ export default class Controller extends Model {
     subscribe(notifyCb){
         const id = this.nextSubscriberId
         this._subscribers[id] = notifyCb
-        notifyCb(super.state)
+        notifyCb(this.state)
         return () => this.unsubscribe(id)
     }
     set state(newState){

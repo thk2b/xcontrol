@@ -91,6 +91,27 @@ test('extending Controller with custom actions', t => {
     t.ok(cb.calledWith(newValue))
     t.end()
 })
+test('extending Controller with custom selectors', t => {
+    class Counter extends Controller {
+        increment(by = 1){
+            this.state = this.state + by
+        }
+        isGreaterThan(n){
+            return this.state > n
+        }
+    }
+    const counter = new Counter(0)
+
+    const cb = sinon.spy()
+    counter.subscribe(cb)
+    t.ok(cb.calledWith(0), 'state should be initial state')
+    t.ok(!counter.isGreaterThan(1), 'selector should be false')
+
+    counter.increment(10)
+    t.ok(cb.calledWith(10), 'state should have been updated')
+    t.ok(counter.isGreaterThan(1), 'selector should be true')
+    t.end()
+})
 
 test('extending Controller with async actions', t => {
     class Value extends Controller {
