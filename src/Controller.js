@@ -1,24 +1,27 @@
-export default class Controller {
+import Model from './Model'
+
+export default class Controller extends Model {
     constructor(initialState){
+        super(initialState)
         this._nextSubscriberId = 0
         this._subscribers = {}
-        this._state = initialState
+    }
+    get nextSubscriberId(){
+        return ++this._nextSubscriberId
+    }
+    unsubscribe(id){
+        return delete this._subscribers[id]
     }
     subscribe(notifyCb){
-        const id = this._nextSubscriberId
-        this._nextSubscriberId += 1
-
+        const id = this.nextSubscriberId
         this._subscribers[id] = notifyCb
 
-        return () => delete this._subscribers[id]
-    }
-    get state(){
-        return this._state
+        return () => this.unsubscribe(id)
     }
     set state(newState){
         Object.values(this._subscribers).forEach(
-            subscriber => subscriber(newState, this._state)
+            subscriber => subscriber(newState, this.state)
         )
-        this._state = newState
+        super.state = newState
     }
 }

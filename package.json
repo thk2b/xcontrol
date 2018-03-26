@@ -6,6 +6,7 @@
   "scripts": {
     "build": "babel src --out-dir lib",
     "test": "babel-tape-runner 'src/**/test/*.test.js' | faucet",
+    "test:ugly": "babel-tape-runner 'src/**/test/*.test.js'",
     "prepublish": "npm run build"
   },
   "repository": {

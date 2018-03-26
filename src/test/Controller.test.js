@@ -11,8 +11,7 @@ test('constructor', t => {
 test('getting the state', t => {
     const value = 'test'
     const c = new Controller(value)
-
-    t.ok(c.state === 'test')
+    t.equal(c._state, value)
 
     t.end()
 })
