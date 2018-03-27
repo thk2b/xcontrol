@@ -1,10 +1,10 @@
 import test from 'tape'
 import sinon from 'sinon'
 
-import reactive from '../reactive'
-import Model from '../../models/Model'
-import Value from '../../models/Value'
-import HashMap from '../../models/HashMap';
+import reactive from '../'
+import Model from '../../../models/Model'
+import Value from '../../../models/Value'
+import HashMap from '../../../models/HashMap';
 
 Object.entries({
     'Model': reactive(Model),

@@ -1,2 +1,1 @@
-export { default as Controller } from './Controller'
-export { default as control } from './control'
+export { default as reactive } from './reactive'
