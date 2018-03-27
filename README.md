@@ -2,13 +2,13 @@
 A lightweight flux interpretation.
 
 ## Related packages
-[react-controlx](https://github.com/thk2b/react-controlx) for react bindings
+[react-xcontrol](https://github.com/thk2b/react-xcontrol) for react bindings
 
-[controlx-examples](https://github.com/thk2b/controlx-examples) contains several complete examples
+[xcontrol-examples](https://github.com/thk2b/xcontrol-examples) contains several complete examples
 
 ## Concepts
 
-`controlx` is a flux interpretation powered by four core constructs:
+`xcontrol` is a flux interpretation powered by four core constructs:
 
 - 💾 models
 - 🎮 controllers
