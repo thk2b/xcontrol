@@ -1,6 +1,11 @@
 # controlx
 A lightweight flux interpretation.
 
+## Related packages
+[react-controlx](https://github.com/thk2b/react-controlx) for react bindings
+
+[controlx-examples](https://github.com/thk2b/controlx-examples) contains several complete examples
+
 ## Concepts
 
 `controlx` is a flux interpretation powered by four core constructs:
