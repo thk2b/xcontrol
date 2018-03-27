@@ -10,9 +10,11 @@ A lightweight flux interpretation.
 - 📡 subscribers
 - 💥 actions
 
-Models store the state. They allow reading and writing state.
+Models store the state. They allow reading and writing state. They are pure: no side effects are permitted. Models can be subclassed to represent more advanced data structures.
 
-Controllers are Models which prevent directly reading the state. The only way of doing so is to subscribe to it. Whenever a controler updates, all the subscribers are called with the new state.
+Controllers are enabled by the `control(Model)` higher order component. Any subclass of `Model` is valid.
+`control(Model)` is essentially a 'dynamic'`extends` statement.
+Controllers enable subscribers to subscribe to its state. Whenever state is written to the model, all subscribers are called with the model's new state. This is the only way of reading the state, by subscribing to it.
 
 Subscribers consume a controller's state and cause actions.
 They connect to the store by passing it a function of state. Whenever the state updates, the function is called by the controller.
