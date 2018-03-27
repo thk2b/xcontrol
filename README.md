@@ -1,6 +1,11 @@
 # controlx
 A lightweight flux interpretation.
 
+## Related packages
+[react-controlx](https://github.com/thk2b/react-controlx) for react bindings
+
+[controlx-examples](https://github.com/thk2b/controlx-examples) contains several complete examples
+
 ## Concepts
 
 `controlx` is a flux interpretation powered by four core constructs:
@@ -12,9 +17,11 @@ A lightweight flux interpretation.
 
 Models store the state. They allow reading and writing state. They are pure: no side effects are permitted. Models can be subclassed to represent more advanced data structures.
 
-Controllers are enabled by the `control(Model)` higher order component. Any subclass of `Model` is valid.
-`control(Model)` is essentially a 'dynamic'`extends` statement.
-Controllers enable subscribers to subscribe to its state. Whenever state is written to the model, all subscribers are called with the model's new state. This is the only way of reading the state, by subscribing to it.
+
+A Controller is a subsclass of Model, which overrides the Model's base state getters and setters. Controllers can have side effects whenever the Model's state is changed. These changes are intercepted in getters and setters. Therefore, by definition, any subclass of Model which overrides get/set state to cause side effects is a Controller.
+
+One possible side effect is notifying subscribers of state changes. This is implemented by the `reactive` HOC. For instance,
+`reactive(Model)` enables subscribing to the Model's state changes. Whenever its state changes, all the subscribers are notified with the new state.
 
 Subscribers consume a controller's state and cause actions.
 They connect to the store by passing it a function of state. Whenever the state updates, the function is called by the controller.
