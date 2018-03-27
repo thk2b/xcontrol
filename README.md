@@ -1,4 +1,4 @@
-# controlx
+# xcontrol
 A lightweight flux interpretation.
 
 ## Related packages
