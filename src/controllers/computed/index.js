@@ -18,15 +18,11 @@ export default controllers => (mapState=defaultMapState) => Model => {
                         message: `can't subscribe to a non-reactive Controller: ${name}`
                     }
                     this._subscriptions[name] = controller.subscribe(
-                        nextState => this.state = mapState({
-                            /* get the current state of all controllers */
-                            // TODO: consider refactoring. Maybe keep a copy of the combined state
-                            ...Object.keys(controllers).reduce(
-                                (obj, name) => ({...obj, [name]: controllers[name].state })
-                            , {}),
-                            [name]: nextState
-                        })
-                    , false)
+                        nextState => {
+                            combinedState[name] = nextState
+                            this.state = mapState(combinedState)
+                        }
+                    , false )
                     combinedState[name] = controller.state
                 }
             )
