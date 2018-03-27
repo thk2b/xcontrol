@@ -1,7 +1,7 @@
 import test from 'tape'
 import sinon from 'sinon'
 
-import { Controller } from '../'
+import Controller from '../Controller'
 
 test('constructor', t => {
     const c = new Controller()

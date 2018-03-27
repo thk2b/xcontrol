@@ -1,10 +1,10 @@
 import Model from '../Model'
 
 export default class Value extends Model {
-    Set(value){
+    set(value){
         this.state = value
     }
-    Delete(){
+    delete(){
         this.state = null
     }
 }

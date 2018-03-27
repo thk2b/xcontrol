@@ -12,7 +12,7 @@ const defaultCompare = a => b => a === b
 export default (enumeration, compare=defaultCompare) => typed(
     state => enumeration.find(compare(state)),
     { 
-        $warn: (state, name) => {
+        warn: (state, name) => {
             console.warn(`invalid value in enum(${name}):`, state)
         }
     }

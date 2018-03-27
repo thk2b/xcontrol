@@ -1,6 +1,4 @@
-import Model from './Model'
-
-export default class Controller extends Model {
+export default Model => class extends Model {
     constructor(initialState){
         super(initialState)
         this._nextSubscriberId = 0
@@ -22,9 +20,13 @@ export default class Controller extends Model {
         return () => this.unsubscribe(id)
     }
     set state(newState){
-        Object.values(this._subscribers).forEach(
+        this._subscribers && Object.values(this._subscribers).forEach(
             subscriber => subscriber(newState, this.state)
         )
         super.state = newState
     }
 }
+
+// control(typed(HashMap))
+
+// class myController extends timeTravel(control(typed(HashMap)))

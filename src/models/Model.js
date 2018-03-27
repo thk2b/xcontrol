@@ -1,6 +1,6 @@
 export default class Model {
     constructor(initialState){
-        this._state = initialState
+        this.state = initialState
     }
     get state(){
         return this._state
