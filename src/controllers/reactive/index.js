@@ -13,10 +13,10 @@ export default Model => class extends Model {
     unsubscribe(id){
         return delete this._subscribers[id]
     }
-    subscribe(notifyCb){
+    subscribe(notifyCb, shouldNotifyImmediately=true){
         const id = this.nextSubscriberId
         this._subscribers[id] = notifyCb
-        notifyCb(this.state)
+        shouldNotifyImmediately && notifyCb(this.state)
         return () => this.unsubscribe(id)
     }
     set state(newState){

@@ -59,6 +59,19 @@ function runTestSuite([name, ReactiveModel]){
             t.ok(innocentCallback.callCount === 1, 'should not have notified other ReactiveModels')
             t.end()
         })
+        main.test('subscribing without initial notification', t => {
+            const initialState = 'initial state'
+            const c = new ReactiveModel(initialState)
+            const callback = sinon.spy()
+
+            c.subscribe(callback, false)
+            t.ok(callback.notCalled, 'should not have been notified upon subscribing')
+            
+            const nextState = 'next state'
+            c.state = nextState
+            t.ok(callback.calledWith(nextState), 'should receive notifications')
+            t.end()
+        })
         main.test('unsubscribing from state updates', t => {
             /* In this test, we subscribe 5 times. 
             ** The first 4 times, we catch the first state update.

@@ -1,5 +1,5 @@
-export default controllers => actions => Model => {
-    export default class extends Model {
+export default controllers => actions => Controller => {
+    export default class {
 
     }
 }
