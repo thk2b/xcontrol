@@ -69,16 +69,53 @@ test('computed(Value)', main => {
         controller0.set(nextState0)
         
         t.equal(c.state, nextState0 + initialState1, 'should update the computed state')
-        t.end()
+        
+        const nextState1 = 'next state 1'
+        setTimeout(() => controller1.set(nextState1), 0)
+        setTimeout(() => {
+            t.equal(c.state, nextState0 + nextState1, 'should update the computed state async')
+            t.end()
+        }, 1)
     })
     main.test('unsubscribing', t => {
-        t.test('should unsubscribe from all controllers')
+        const controller0 = new ReactiveValue(initialState0)
+        const controller1 = new ReactiveValue(initialState1)
+        class ComputedValue extends computed({ controller0, controller1 })
+            ()
+        (Value){ }
+        const c = new ComputedValue()
+        c.unsubscribe()
+        controller0.set('lost in the void')
+        controller1.set('lost in the void too')
+
+        t.deepEqual(c.state, {
+            controller0: initialState0,
+            controller1: initialState1
+        }, 'should unsubscribe from all controllers')
         t.end()
     })
 })
 
 test('couputed(reactive(Value))', main => {
     main.test('updating state', t => {
+        const controller0 = new ReactiveValue(initialState0)
+        const controller1 = new ReactiveValue(initialState1)
+        const mapState = ({ controller0, controller1 }) => (
+            controller0 + controller1
+        )
+        class ReactiveComputedValue extends reactive(computed({ controller0, controller1 })
+            (mapState)
+        (Value)){ }
+        const c = new ReactiveComputedValue()
+        t.equal(c.state, initialState0 + initialState1)
+
+        const nextState0 = 'next state 0'
+        const spy = sinon.spy()
+        c.subscribe(spy, false)
+        controller0.set(nextState0)
+        
+        t.ok(spy.calledOnce)
+        t.ok(spy.calledOnceWith( nextState0 + initialState1 ))
         t.end()
     })
 })
