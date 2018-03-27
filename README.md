@@ -15,7 +15,8 @@ A lightweight flux interpretation.
 - 📡 subscribers
 - 💥 actions
 
-Models store the state. They allow reading and writing state.
+Models store the state. They allow reading and writing state. They are pure: no side effects are permitted. Models can be subclassed to represent more advanced data structures.
+
 
 A Controller is a subsclass of Model, which overrides the Model's base state getters and setters. Controllers can have side effects whenever the Model's state is changed. These changes are intercepted in getters and setters. Therefore, by definition, any subclass of Model which overrides get/set state to cause side effects is a Controller.
 
