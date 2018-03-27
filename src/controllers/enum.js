@@ -3,7 +3,7 @@ import { assert, either } from 'duck-check'
 
 const defaultCompare = a => b => a === b
 
-const warn 
+// const warn 
 
 /**
  * exports a Higher order model whose value 

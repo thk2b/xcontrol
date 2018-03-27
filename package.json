@@ -1,5 +1,5 @@
 {
-  "name": "controlx",
+  "name": "xcontrol",
   "version": "0.0.2",
   "description": "A flux implementation",
   "main": "lib/index.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thk2b/controlx.git"
+    "url": "git+https://github.com/thk2b/xcontrol.git"
   },
   "keywords": [
     "flux",
@@ -23,9 +23,9 @@
   "author": "thk2b",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/thk2b/controlx/issues"
+    "url": "https://github.com/thk2b/xcontrol/issues"
   },
-  "homepage": "https://github.com/thk2b/controlx#readme",
+  "homepage": "https://github.com/thk2b/xcontrol#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
