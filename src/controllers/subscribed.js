@@ -35,17 +35,17 @@ export default controllers => (mapState=defaultMapState, ...actions) => Model =>
     return Subscribed
 }
 
-export default subscribed({ users, filter })(
-    ({ users, filter }) => ({ filteredUsers: where(users, filter) })
-)(Model)
+// export default subscribed({ users, filter })(
+//     ({ users, filter }) => ({ filteredUsers: where(users, filter) })
+// )(Model)
 
-export default subscribed({ users, filter })(
-    ({ users, filter }) => ({ filteredUsers: where(users, filter) }),
-    {
-        users: { addUser: users.add },
-        filter: { setFilter: filter.set }
-    }
-)(Model)
+// export default subscribed({ users, filter })(
+//     ({ users, filter }) => ({ filteredUsers: where(users, filter) }),
+//     {
+//         users: { addUser: users.add },
+//         filter: { setFilter: filter.set }
+//     }
+// )(Model)
 
 // possible API
 // export default class extends subscribed({ users, filter })(
