@@ -33,11 +33,5 @@ export default controllers => (mapState=defaultMapState) => Model => {
                 unsubscribe => unsubscribe()
             )
         }
-        get state(){
-            return super.state
-        }
-        set state(nextState){
-            super.state = nextState
-        }
     }
 }
