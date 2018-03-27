@@ -26,7 +26,3 @@ export default Model => class extends Model {
         super.state = newState
     }
 }
-
-// control(typed(HashMap))
-
-// class myController extends timeTravel(control(typed(HashMap)))
