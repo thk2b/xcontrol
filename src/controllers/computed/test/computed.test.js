@@ -29,7 +29,7 @@ test('computed(Value)', main => {
         t.test('default mapState', t => {
             class ComputedValue extends BoundComputed()(ReactiveValue){}
             const c = new ComputedValue()
-            t.deepEqual(c.state, combinedInitialStates , 'should set the state to the combined state')
+            t.deepEqual(c.store, combinedInitialStates , 'should set the store to the combined state')
             t.end()
         })
         t.test('custom mapState', t => {
@@ -40,19 +40,19 @@ test('computed(Value)', main => {
                 t.ok(spy.calledOnceWith(combinedInitialStates), 'should be passed the combined state')
                 t.end()
             })
-            t.test('should set the state to the result of mapState', t => {
+            t.test('should set the store to the result of mapState', t => {
                 const mapState = ({ controller0, controller1 }) => (
                     controller0 + controller1
                 )
                 class ComputedValue extends BoundComputed(mapState)(ReactiveValue){}
                 const c = new ComputedValue()
 
-                t.deepEqual(c.state, initialState0 + initialState1)
+                t.deepEqual(c.store, initialState0 + initialState1)
                 t.end()
             })
         })
     })
-    main.test('updating state', t => {
+    main.test('updating store', t => {
         const controller0 = new ReactiveValue(initialState0)
         const controller1 = new ReactiveValue(initialState1)
         const mapState = ({ controller0, controller1 }) => (
@@ -63,17 +63,17 @@ test('computed(Value)', main => {
         (Value){ }
         const c = new ComputedValue()
 
-        t.equal(c.state, initialState0 + initialState1)
+        t.equal(c.store, initialState0 + initialState1)
 
         const nextState0 = 'next state 0'
         controller0.set(nextState0)
         
-        t.equal(c.state, nextState0 + initialState1, 'should update the computed state')
+        t.equal(c.store, nextState0 + initialState1, 'should update the computed state')
         
         const nextState1 = 'next state 1'
         setTimeout(() => controller1.set(nextState1), 0)
         setTimeout(() => {
-            t.equal(c.state, nextState0 + nextState1, 'should update the computed state async')
+            t.equal(c.store, nextState0 + nextState1, 'should update the computed state async')
             t.end()
         }, 1)
     })
@@ -88,7 +88,7 @@ test('computed(Value)', main => {
         controller0.set('lost in the void')
         controller1.set('lost in the void too')
 
-        t.deepEqual(c.state, {
+        t.deepEqual(c.store, {
             controller0: initialState0,
             controller1: initialState1
         }, 'should unsubscribe from all controllers')
@@ -97,7 +97,7 @@ test('computed(Value)', main => {
 })
 
 test('couputed(reactive(Value))', main => {
-    main.test('updating state', t => {
+    main.test('updating store', t => {
         const controller0 = new ReactiveValue(initialState0)
         const controller1 = new ReactiveValue(initialState1)
         const mapState = ({ controller0, controller1 }) => (
@@ -107,7 +107,7 @@ test('couputed(reactive(Value))', main => {
             (mapState)
         (Value)){ }
         const c = new ReactiveComputedValue()
-        t.equal(c.state, initialState0 + initialState1)
+        t.equal(c.store, initialState0 + initialState1)
 
         const nextState0 = 'next state 0'
         const spy = sinon.spy()

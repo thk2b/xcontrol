@@ -3,8 +3,8 @@ import invariant from '../../lib/invariant'
 const defaultMapState = state => state
 
 /** 
- * Returns a Model whose state is set to the result of calling mapState whenever the controllers update.
- * When any controller update, the Model's state is updated.
+ * Returns a Model whose store is set to the result of calling mapState whenever the controllers update.
+ * When any controller update, the Model's store is updated.
  * If the Model is reactive, then all its subscribers will be notified.
  */
 export default controllers => (mapState=defaultMapState) => Model => {
@@ -25,13 +25,13 @@ export default controllers => (mapState=defaultMapState) => Model => {
                     this._subscriptions[name] = controller.subscribe(
                         nextState => {
                             combinedState[name] = nextState
-                            this.state = mapState(combinedState)
+                            this.store = mapState(combinedState)
                         }
                     , false )
-                    combinedState[name] = controller.state
+                    combinedState[name] = controller.store
                 }
             )
-            this.state = mapState(combinedState)
+            this.store = mapState(combinedState)
         }
         unsubscribe(){
             Object.values(this._subscriptions).forEach(
