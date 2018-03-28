@@ -38,8 +38,8 @@ test('computed(Value)', main => {
                 class ComputedValue extends computed(ReactiveValue)(
                     { controller0, controller1 }, spy
                 ){}
-                const c = new ComputedValue()
-                t.ok(spy.calledOnceWith(combinedInitialStates), 'should be passed the combined state')
+                const c = new ComputedValue(initialState0)
+                t.ok(spy.calledOnceWith(combinedInitialStates, initialState0), 'should be passed the combined state')
                 t.end()
             })
             t.test('should set the store to the result of mapState', t => {
@@ -52,6 +52,19 @@ test('computed(Value)', main => {
                 const c = new ComputedValue()
 
                 t.deepEqual(c.store, initialState0 + initialState1)
+                t.end()
+            })
+            t.test('should set the store to the result of mapState when using initialState', t => {
+                const mapState = ({ controller0, controller1 }, { otherValue }) => (
+                    controller0 + controller1 + otherValue
+                )
+                class ComputedValue extends computed(ReactiveValue)(
+                    { controller0, controller1 }, mapState
+                ){}
+                const initialState = { otherValue: 'hi'}
+                const c = new ComputedValue(initialState)
+
+                t.deepEqual(c.store, initialState0 + initialState1 + initialState.otherValue)
                 t.end()
             })
         })
