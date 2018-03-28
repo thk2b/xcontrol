@@ -1,3 +1,4 @@
+export { default as Model } from './models/Model'
 export { default as reactive } from './controllers/reactive'
 export { default as Controller } from './controllers/Controller'
 // export { default as computed } from './controllers/computed'
