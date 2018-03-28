@@ -17,6 +17,7 @@ test('computed(Value)', main => {
         class ComputedValue extends computed({ controller })()(Value){}
         const c = new ComputedValue()
         t.ok(c instanceof Value, 'should return an instance of the decorated class')
+        t.equal(c.store.controller, initialState0, 'should have initialState')
         t.end()
     })
     main.test('mapping state', t => {
