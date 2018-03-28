@@ -103,9 +103,9 @@ test('couputed(reactive(Value))', main => {
         const mapState = ({ controller0, controller1 }) => (
             controller0 + controller1
         )
-        class ReactiveComputedValue extends reactive(computed({ controller0, controller1 })
+        class ReactiveComputedValue extends computed({ controller0, controller1 })
             (mapState)
-        (Value)){ }
+        (reactive(Value)){ }
         const c = new ReactiveComputedValue()
         t.equal(c.store, initialState0 + initialState1)
 

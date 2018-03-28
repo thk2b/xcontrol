@@ -10,7 +10,9 @@ const defaultMapState = state => state
 export default controllers => (mapState=defaultMapState) => Model => {
     return class extends Model {
         constructor(initialState){
-            const subscriptions = {}
+            super(initialState)
+            this._subscriptions = {}
+            
             const combinedState = {}
             Object.entries(controllers).forEach(
                 ([ name, controller ]) => {
@@ -20,17 +22,16 @@ export default controllers => (mapState=defaultMapState) => Model => {
                         `But the ${name} controller is not reactive.` +
                         `To solve the issue, wrap the controller's class in a 'reactive' call`
                     )
-                    subscriptions[name] = controller.subscribe(
+                    this._subscriptions[name] = controller.subscribe(
                         nextState => {
                             combinedState[name] = nextState
-                            this.store = mapState(combinedState)
+                            super.store = mapState(combinedState)
                         }
                     , false )
                     combinedState[name] = controller.store
                 }
             )
-            super(mapState(combinedState))
-            this._subscriptions = subscriptions
+            super.store = mapState(combinedState)
         }
         unsubscribe(){
             Object.values(this._subscriptions).forEach(
