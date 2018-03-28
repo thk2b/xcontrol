@@ -72,11 +72,11 @@ function runTestSuite([name, ReactiveModel]){
             t.ok(callback.calledWith(nextState), 'should receive notifications')
             t.end()
         })
-        main.test('unsubscribing from state updates', t => {
+        main.test('unsubscribing from store updates', t => {
             /* In this test, we subscribe 5 times. 
-            ** The first 4 times, we catch the first state update.
+            ** The first 4 times, we catch the first store update.
             ** We then unsubscribe 2 subscribers and subscribe a fith one.
-            ** We cause a final state update for the remaining 3 subscribers. 
+            ** We cause a final store update for the remaining 3 subscribers. 
             */
             const c = new ReactiveModel()
             const value = 'test'

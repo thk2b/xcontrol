@@ -10,14 +10,13 @@ export default function typed(check,
     return Model => class Typed extends Model {
         constructor(initialState){
             super(initialState)
-            this.state = initialState //Q: needeed ?
         }
-        get state(){
-            return super.state
+        get store(){
+            return super.store
         }
-        set state(newState){
+        set store(newState){
             this.check(newState)
-                ? super.state = newState
+                ? super.store = newState
                 : warn(newState, this.name)
         }
     }

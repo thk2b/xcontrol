@@ -19,7 +19,7 @@ test('Model', main => {
         const m = new Model(initialState)
         const nextState = 'next state'
         m.store = nextState
-        t.equal(m.store, nextState, 'should have updated the state')
+        t.equal(m.store, nextState, 'should have updated the store')
         t.end()
     })
     main.test('delete', t => {
