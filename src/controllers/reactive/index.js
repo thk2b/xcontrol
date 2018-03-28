@@ -4,8 +4,8 @@ export default Model => class extends Model {
         this._nextSubscriberId = 0
         this._subscribers = {}
     }
-    get state(){
-        return super.state
+    get store(){
+        return super.store
     }
     get nextSubscriberId(){
         return ++this._nextSubscriberId
@@ -16,13 +16,13 @@ export default Model => class extends Model {
     subscribe(notifyCb, shouldNotifyImmediately=true){
         const id = this.nextSubscriberId
         this._subscribers[id] = notifyCb
-        shouldNotifyImmediately && notifyCb(this.state)
+        shouldNotifyImmediately && notifyCb(this.store)
         return () => this.unsubscribe(id)
     }
-    set state(newState){
-        super.state = newState
+    set store(newState){
+        super.store = newState
         this._subscribers && Object.values(this._subscribers).forEach(
-            subscriber => subscriber(newState, this.state)
+            subscriber => subscriber(newState, this.store)
         )   
     }
 }

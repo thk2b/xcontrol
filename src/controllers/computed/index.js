@@ -25,13 +25,13 @@ export default controllers => (mapState=defaultMapState) => Model => {
                     this._subscriptions[name] = controller.subscribe(
                         nextState => {
                             combinedState[name] = nextState
-                            this.state = mapState(combinedState)
+                            this.store = mapState(combinedState)
                         }
                     , false )
-                    combinedState[name] = controller.state
+                    combinedState[name] = controller.store
                 }
             )
-            this.state = mapState(combinedState)
+            this.store = mapState(combinedState)
         }
         unsubscribe(){
             Object.values(this._subscriptions).forEach(

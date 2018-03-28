@@ -35,7 +35,7 @@ function runTestSuite([name, ReactiveModel]){
                 t.end()
             }) 
         })
-        main.test('subscribing to state updates', t => {
+        main.test('subscribing to store updates', t => {
             const initialState = 'initial state'
             const c = new ReactiveModel(initialState)
             const callback1 = sinon.spy()    
@@ -54,7 +54,7 @@ function runTestSuite([name, ReactiveModel]){
             
             const value = 'test'
         
-            c.state = value
+            c.store = value
             t.ok(callback1.calledWith(value) && callback2.calledWith(value), 'should have notified subscribers with the new state')
             t.ok(innocentCallback.callCount === 1, 'should not have notified other ReactiveModels')
             t.end()
@@ -68,7 +68,7 @@ function runTestSuite([name, ReactiveModel]){
             t.ok(callback.notCalled, 'should not have been notified upon subscribing')
             
             const nextState = 'next state'
-            c.state = nextState
+            c.store = nextState
             t.ok(callback.calledWith(nextState), 'should receive notifications')
             t.end()
         })
@@ -94,7 +94,7 @@ function runTestSuite([name, ReactiveModel]){
             const unsubscribe2 = c.subscribe(callback2)
             const unsubscribe3 = c.subscribe(callback3)
             
-            c.state = value
+            c.store = value
             
             const didUnsubscribe = unsubscribe()
             t.ok(didUnsubscribe, 'should return true when the subscriber is removed')
@@ -102,7 +102,7 @@ function runTestSuite([name, ReactiveModel]){
         
             const unsubscribe4 = c.subscribe(callback4)    
         
-            c.state = newValue
+            c.store = newValue
         
             t.ok(callback.calledTwice)
             t.ok(callback1.calledThrice)
@@ -143,21 +143,21 @@ test('advanced Model reactivity', main => {
     main.test('reactive Model with custom selectors', t => {
         class Counter extends reactive(Model) {
             increment(by = 1){
-                this.state = this.state + by
+                this.store = this.store + by
             }
             isGreaterThan(n){
-                return this.state > n
+                return this.store > n
             }
         }
         const counter = new Counter(0)
     
         const cb = sinon.spy()
         counter.subscribe(cb)
-        t.ok(cb.calledWith(0), 'state should be initial state')
+        t.ok(cb.calledWith(0), 'store should be initial state')
         t.ok(!counter.isGreaterThan(1), 'selector should be false')
     
         counter.increment(10)
-        t.ok(cb.calledWith(10), 'state should have been updated')
+        t.ok(cb.calledWith(10), 'store should have been updated')
         t.ok(counter.isGreaterThan(1), 'selector should be true')
         t.end()
     })
@@ -199,7 +199,7 @@ test('advanced Model reactivity', main => {
         class UpperCaseValue extends ReactiveValue {
             setToUpperCaseAndHaveSideEffects(val){
                 value.set(val)
-                this.state = val.toUpperCase()
+                this.store = val.toUpperCase()
             }
         }
         const upperValue = new UpperCaseValue()
@@ -222,13 +222,13 @@ test('advanced Model reactivity', main => {
         const b = new B()
 
         a.subscribe( aState => b.set(aState))
-        t.equal(a.state, initialState, 'should have causes an initial state update')
+        t.equal(a.store, initialState, 'should have causes an initial store update')
         
         const nextState = 'next state'
         setTimeout(() => a.set(nextState), 0)
         setTimeout(() => {
             t.end()
-            t.equal(b.state, nextState)
+            t.equal(b.store, nextState)
         }, 1)
     })
 })
