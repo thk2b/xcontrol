@@ -20,9 +20,9 @@ export default Model => class extends Model {
         return () => this.unsubscribe(id)
     }
     set state(newState){
+        super.state = newState
         this._subscribers && Object.values(this._subscribers).forEach(
             subscriber => subscriber(newState, this.state)
-        )
-        super.state = newState
+        )   
     }
 }
