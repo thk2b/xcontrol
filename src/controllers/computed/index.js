@@ -7,7 +7,8 @@ const defaultMapState = state => state
  * When any controller update, the Model's store is updated.
  * If the Model is reactive, then all its subscribers will be notified.
  */
-export default controllers => (mapState=defaultMapState) => Model => {
+// export default controllers => (mapState=defaultMapState) => Model => {
+export default Model => (controllers, mapState=defaultMapState) => {
     return class extends Model {
         constructor(initialState){
             super(initialState)
