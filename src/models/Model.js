@@ -2,16 +2,16 @@ export default class Model {
     constructor(initialState){
         this.create(initialState)
     }
-    get state(){
-        return this._state
+    get store(){
+        return this._store
     }
-    set state(newState){
-        this._state = newState
+    set store(nextState){
+        this._store = nextState
     }
     create(initialState){
-        this.state = initialState
+        this.store = initialState
     }
     delete(){
-        this.state = null
+        this.store = null
     }
 }

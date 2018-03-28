@@ -28,21 +28,21 @@ test('HashMap', main => {
             hm.set(nextState)
             const key = 'c'
             t.equal(hm.get(key), nextState[key])
-            t.deepEqual(hm.state, {...initialState, ...nextState })
+            t.deepEqual(hm.store, {...initialState, ...nextState })
             t.end()
         })
         t.test('should override existing values when key is already set', t => {
             hm.set(nextState1)
             const key = 'c'
             t.equal(hm.get(key), nextState1[key])
-            t.deepEqual(hm.state, {...initialState, ...nextState1 })
+            t.deepEqual(hm.store, {...initialState, ...nextState1 })
             t.end()
         })
         t.test('should set multiple keys', t => {
             hm.set(nextState2)
             const key = 'e'
             t.equal(hm.get(key), nextState2[key])
-            t.deepEqual(hm.state, {...initialState, ...nextState1, ...nextState2 })
+            t.deepEqual(hm.store, {...initialState, ...nextState1, ...nextState2 })
             t.end()
         })        
     })
@@ -55,7 +55,7 @@ test('HashMap', main => {
             t.equal(hm.get(key), null)
             const expectedState = initialState
             delete expectedState[key]
-            t.deepEqual(hm.state, expectedState)
+            t.deepEqual(hm.store, expectedState)
             t.end()
         })
     })

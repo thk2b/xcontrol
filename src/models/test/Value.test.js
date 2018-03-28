@@ -15,7 +15,7 @@ test('Value', main => {
         const v = new Value(initialState)
         const newState = 'new state'
         v.set(newState)
-        t.equal(v.state, newState, 'should set the state')
+        t.equal(v.store, newState, 'should set the state')
         t.end()
     })
 })
