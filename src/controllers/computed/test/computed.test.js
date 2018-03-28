@@ -131,7 +131,7 @@ test('invariants', main => {
         } catch(e) {
             t.equal(e.message,
                 `Invariant Violation: Can't subscribe to a non-reactive controller instance.` + 
-                `You tried connecting to a controller named controller in computed(Value),` +
+                `You tried subscribing to a controller named controller in computed(Value),` +
                 `But the controller controller is not reactive.` +
                 `To solve the issue, wrap the controller's class in a 'reactive' call`
             )

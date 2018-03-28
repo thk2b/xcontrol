@@ -18,7 +18,7 @@ export default controllers => (mapState=defaultMapState) => Model => {
                 ([ name, controller ]) => {
                     invariant(controller.subscribe, 
                         `Can't subscribe to a non-reactive controller instance.` + 
-                        `You tried connecting to a controller named ${name} in computed(${Model.name}),` +
+                        `You tried subscribing to a controller named ${name} in computed(${Model.name}),` +
                         `But the ${name} controller is not reactive.` +
                         `To solve the issue, wrap the controller's class in a 'reactive' call`
                     )
