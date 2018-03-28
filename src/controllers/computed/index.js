@@ -1,3 +1,5 @@
+import invariant from '../../lib/invariant'
+
 const defaultMapState = state => state
 
 /** 
@@ -14,9 +16,12 @@ export default controllers => (mapState=defaultMapState) => Model => {
             const combinedState = {}
             Object.entries(controllers).forEach(
                 ([ name, controller ]) => {
-                    if(!controller.subscribe) throw { 
-                        message: `can't subscribe to a non-reactive Controller: ${name}`
-                    }
+                    invariant(controller.subscribe, 
+                        `Can't subscribe to a non-reactive controller instance.` + 
+                        `You tried connecting to a controller named ${name} in computed(${Model.name}),` +
+                        `But the ${name} controller is not reactive.` +
+                        `To solve the issue, wrap the controller's class in a 'reactive' call`
+                    )
                     this._subscriptions[name] = controller.subscribe(
                         nextState => {
                             combinedState[name] = nextState

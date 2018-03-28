@@ -119,3 +119,23 @@ test('couputed(reactive(Value))', main => {
         t.end()
     })
 })
+
+test('invariants', main => {
+    main.test('subscribing to a non-reactive controller', t => {
+        const controller = new Value()
+        class ComputedValue extends computed({ controller })
+            ()
+        (Value){ }
+        try {
+            new ComputedValue()
+        } catch(e) {
+            t.equal(e.message,
+                `Invariant Violation: Can't subscribe to a non-reactive controller instance.` + 
+                `You tried connecting to a controller named controller in computed(Value),` +
+                `But the controller controller is not reactive.` +
+                `To solve the issue, wrap the controller's class in a 'reactive' call`
+            )
+            t.end()
+        }
+    })
+})
