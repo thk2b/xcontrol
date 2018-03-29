@@ -1,6 +1,6 @@
 import test from 'tape'
 
-import Controller from '../Controller'
+import Controller from '../'
 
 test('Controller', main => {
     const initialState = 'initial state'

@@ -3,13 +3,12 @@ import invariant from '../../lib/invariant'
 const defaultMapState = state => state
 
 /** 
- * Returns a Model whose store is set to the result of calling mapState whenever the controllers update.
- * When any controller update, the Model's store is updated.
- * If the Model is reactive, then all its subscribers will be notified.
+ * Returns a Controller whose store is set to the result of calling mapState whenever the controllers update.
+ * When any controller update, the Controller's store is updated.
+ * If the Controller is reactive, then all its subscribers will be notified.
  */
-// export default controllers => (mapState=defaultMapState) => Model => {
-export default Model => (controllers, mapState=defaultMapState) => {
-    return class extends Model {
+export default Controller => (controllers, mapState=defaultMapState) => {
+    return class Computed extends Controller {
         constructor(initialState){
             super(initialState)
             this._subscriptions = {}
@@ -19,7 +18,7 @@ export default Model => (controllers, mapState=defaultMapState) => {
                 ([ name, controller ]) => {
                     invariant(controller.subscribe, 
                         `Can't subscribe to a non-reactive controller instance.` + 
-                        `You tried subscribing to a controller named ${name} in computed(${Model.name}),` +
+                        `You tried subscribing to a controller named ${name} in computed(${Controller.name}),` +
                         `But the ${name} controller is not reactive.` +
                         `To solve the issue, wrap the controller's class in a 'reactive' call`
                     )
