@@ -1,15 +1,15 @@
 import test from 'tape'
 import sinon from 'sinon'
 
-import reactive from '../'
+import Reactive from '../'
 import Model from '../../../models/Model'
 import Value from '../../../models/Value'
 import HashMap from '../../../models/HashMap';
 
 Object.entries({
-    'Model': reactive(Model),
-    'Value': reactive(Value),
-    'HashMap': reactive(HashMap)
+    'Model': Model,
+    'Value': Value,
+    'HashMap': HashMap
 }).forEach(runTestSuite)
 
 function runTestSuite([name, ReactiveModel]){
@@ -17,7 +17,7 @@ function runTestSuite([name, ReactiveModel]){
     ** This suite ignores actions specific to each model.
     ** Instead, it ensures they all have basic reactive properties.
     */
-    name = `reactive(${name})`
+    name = `Reactive(${name})`
     test(name, main => {
         main.test('constructor', t => {
             const assert = c => {
@@ -25,12 +25,6 @@ function runTestSuite([name, ReactiveModel]){
             }
             t.test('extending ' + name, t => {
                 const c = new ReactiveModel()
-                assert(c)
-                t.end()
-            }) 
-            t.test('new new ' + name , t => {
-                const c = new new reactive(Model)
-                /* caveat: doesn't new reactive... work ?*/
                 assert(c)
                 t.end()
             }) 
@@ -114,22 +108,20 @@ function runTestSuite([name, ReactiveModel]){
     })
 }
 
-class ReactiveModel extends reactive(HashMap){}
-class ReactiveValue extends reactive(Value){}
-class AsyncReactiveValue extends ReactiveValue {
-    set(value){
-        setTimeout(() => super.set(value), 0)
-    }
-}
-
 test('advanced Model reactivity', main => {
     /** This test suite guarantees that Models with custom actions
      ** are still reactive.
      ** These actions can be pure, async or cause actions in other models
      ** In sum, this suite guarantees that reactivity is preserved on any compliant Model.
      */
+    
+    class AsyncReactiveValue extends Value {
+        set(value){
+            setTimeout(() => super.set(value), 0)
+        }
+    }
     main.test('reactive Model with custom actions', t => {
-        const v = new ReactiveValue('initial')
+        const v = new Value('initial')
     
         const cb = sinon.spy()
         v.subscribe(cb)
@@ -141,7 +133,7 @@ test('advanced Model reactivity', main => {
         t.end()
     })
     main.test('reactive Model with custom selectors', t => {
-        class Counter extends reactive(Model) {
+        class Counter extends Reactive(Model) {
             increment(by = 1){
                 this.store = this.store + by
             }
@@ -177,7 +169,7 @@ test('advanced Model reactivity', main => {
         }, 1)
     })
     main.test('causing actions asynchronously', t => {
-        const v = new ReactiveValue()
+        const v = new Value()
         const callback = sinon.spy()
         v.subscribe(callback)
     
@@ -192,11 +184,11 @@ test('advanced Model reactivity', main => {
     
     })
     main.test('calling another reactive model\'s actions', t => {
-        const value = new ReactiveValue()
+        const value = new Value()
         const valueCb = sinon.spy()
         value.subscribe(valueCb)
     
-        class UpperCaseValue extends ReactiveValue {
+        class UpperCaseValue extends Value {
             setToUpperCaseAndHaveSideEffects(val){
                 value.set(val)
                 this.store = val.toUpperCase()
@@ -214,8 +206,8 @@ test('advanced Model reactivity', main => {
         t.end()
     })
     main.test('subscribing to another reactive model', t => {
-        class A extends ReactiveValue { }
-        class B extends ReactiveValue { }
+        class A extends Value { }
+        class B extends Value { }
 
         const initialState = 'initial state'
         const a = new A(initialState)
