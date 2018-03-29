@@ -1,6 +1,4 @@
-import Base from './Base'
-
-export default Super => class extends (Super || Base) {
+export default (Super=null) => class extends Super {
     constructor(initialState){
         super(initialState)
         this._store = null
