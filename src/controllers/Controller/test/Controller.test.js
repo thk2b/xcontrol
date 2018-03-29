@@ -22,12 +22,6 @@ test('Controller', main => {
         t.equal(c.store, initialState)
         t.end()
     })
-    main.test('create', t => {
-        const c = new ( Controller() )(null)
-        c.create(initialState)
-        t.equal(c.store, initialState, 'should set the store')
-        t.end()
-    })
     main.test('get state', t => {
         const c = new ( Controller() )(initialState)
         t.equal(c.store, initialState, 'should get the state')
