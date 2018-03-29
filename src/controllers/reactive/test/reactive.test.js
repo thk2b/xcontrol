@@ -201,9 +201,16 @@ test('advanced Model reactivity', main => {
         const testValue = 'test value'
         upperValue.setToUpperCaseAndHaveSideEffects(testValue)
     
-        t.ok(upperValueCb.calledWith(testValue.toUpperCase()), 'should notify subscriber with own state')
+        t.ok(upperValueCb.calledWith(testValue.toUpperCase()), 'should have notified subscriber with own state')
         t.ok(valueCb.calledWith(testValue), 'should have notified the other controller\'s subscribers')
-        t.end()
+
+        const nextValue = 'next value'
+        setTimeout(() => upperValue.setToUpperCaseAndHaveSideEffects(nextValue), 0)
+        setTimeout(() => {
+            t.ok(upperValueCb.calledWith(nextValue.toUpperCase()), 'should have notified subscriber with own state async')
+            t.ok(valueCb.calledWith(nextValue), 'should have notified the other controller\'s subscribers async')
+            t.end()
+        }, 1)
     })
     main.test('subscribing to another reactive model', t => {
         class A extends Value { }
