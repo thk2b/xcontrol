@@ -4,6 +4,24 @@ import Controller from '../'
 
 test('Controller', main => {
     const initialState = 'initial state'
+    main.test('default base class', t => {
+        const c = new ( Controller() )(initialState)
+        t.equal(c.store, initialState)
+        t.end()
+    })
+    main.test('custom super class', t => {
+        const value = 'test value'
+        class Test {
+            someMethod(){
+                return value
+            }
+        }
+        class TestController extends Controller(Test){}
+        const c = new TestController(initialState)
+        t.equal(c.someMethod(), value)
+        t.equal(c.store, initialState)
+        t.end()
+    })
     main.test('create', t => {
         const c = new ( Controller() )(null)
         c.create(initialState)
