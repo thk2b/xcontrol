@@ -1,33 +1,32 @@
 import test from 'tape'
 import sinon from 'sinon'
 
-import computed from '../'
+import Computed from '../'
 
-import reactive from '../../reactive'
+import Controller from '../../Controller'
 import Value from '../../../models/Value'
 
-class ReactiveValue extends reactive(Value){}
 const initialState0 = 'initial state 0'
 const initialState1 = 'initial state 1'
 const combinedInitialStates = { initialState0, initialState1}
 
-test('computed(Value)', main => {
+test('Computed(Value)', main => {
     main.test('contructor', t => {  
-        const controller = new ReactiveValue(initialState0)
-        class ComputedValue extends computed(Value)({ controller }){}
+        const controller = new Value(initialState0)
+        class ComputedValue extends Computed(Value)({ controller }){}
         const c = new ComputedValue()
         t.ok(c instanceof Value, 'should return an instance of the decorated class')
         t.equal(c.store.controller, initialState0, 'should have initialState')
         t.end()
     })
     main.test('mapping state', t => {
-        const controller0 = new ReactiveValue(initialState0)
-        const controller1 = new ReactiveValue(initialState1)
+        const controller0 = new Value(initialState0)
+        const controller1 = new Value(initialState1)
         const combinedInitialStates = {
             controller0: initialState0, controller1: initialState1
         }
         t.test('default mapState', t => {
-            class ComputedValue extends computed(ReactiveValue)({ controller0, controller1 }){}
+            class ComputedValue extends Computed(Value)({ controller0, controller1 }){}
             const c = new ComputedValue()
             t.deepEqual(c.store, combinedInitialStates , 'should set the store to the combined state')
             t.end()
@@ -35,18 +34,25 @@ test('computed(Value)', main => {
         t.test('custom mapState', t => {
             t.test('is given the correct arguments', t => {
                 const spy = sinon.spy()
-                class ComputedValue extends computed(ReactiveValue)(
+                class ComputedValue extends Computed(Value)(
                     { controller0, controller1 }, spy
                 ){}
                 const c = new ComputedValue(initialState0)
-                t.ok(spy.calledOnceWith(combinedInitialStates, initialState0), 'should be passed the combined state')
+                
+                t.ok(spy.calledOnceWith(combinedInitialStates, initialState0), 'should be passed the combined state and initial state')
+
+                const prevState = c.state
+                t.ok(prevState, 'should be defined')
+                controller0.set(initialState0)
+                t.ok(spy.calledOnceWith(combinedInitialStates, prevState), 'should be passed the combined state and previous state')
+
                 t.end()
             })
             t.test('should set the store to the result of mapState', t => {
                 const mapState = ({ controller0, controller1 }) => (
                     controller0 + controller1
                 )
-                class ComputedValue extends computed(ReactiveValue)(
+                class ComputedValue extends Computed(Value)(
                     { controller0, controller1 }, mapState
                 ){}
                 const c = new ComputedValue()
@@ -58,7 +64,7 @@ test('computed(Value)', main => {
                 const mapState = ({ controller0, controller1 }, { otherValue }) => (
                     controller0 + controller1 + otherValue
                 )
-                class ComputedValue extends computed(ReactiveValue)(
+                class ComputedValue extends Computed(Value)(
                     { controller0, controller1 }, mapState
                 ){}
                 const initialState = { otherValue: 'hi'}
@@ -70,12 +76,12 @@ test('computed(Value)', main => {
         })
     })
     main.test('updating store', t => {
-        const controller0 = new ReactiveValue(initialState0)
-        const controller1 = new ReactiveValue(initialState1)
+        const controller0 = new Value(initialState0)
+        const controller1 = new Value(initialState1)
         const mapState = ({ controller0, controller1 }) => (
             controller0 + controller1
         )
-        class ComputedValue extends computed(Value)(
+        class ComputedValue extends Computed(Value)(
             { controller0, controller1 }, mapState
         ){ }
         const c = new ComputedValue()
@@ -95,9 +101,9 @@ test('computed(Value)', main => {
         }, 1)
     })
     main.test('unsubscribing', t => {
-        const controller0 = new ReactiveValue(initialState0)
-        const controller1 = new ReactiveValue(initialState1)
-        class ComputedValue extends computed(Value)(
+        const controller0 = new Value(initialState0)
+        const controller1 = new Value(initialState1)
+        class ComputedValue extends Computed(Value)(
             { controller0, controller1 }
         ){ }
         const c = new ComputedValue()
@@ -113,34 +119,10 @@ test('computed(Value)', main => {
     })
 })
 
-test('couputed(reactive(Value))', main => {
-    main.test('updating store', t => {
-        const controller0 = new ReactiveValue(initialState0)
-        const controller1 = new ReactiveValue(initialState1)
-        const mapState = ({ controller0, controller1 }) => (
-            controller0 + controller1
-        )
-        class ReactiveComputedValue extends computed(reactive(Value))(
-            { controller0, controller1 }, mapState
-        ){ }
-        const c = new ReactiveComputedValue()
-        t.equal(c.store, initialState0 + initialState1)
-
-        const nextState0 = 'next state 0'
-        const spy = sinon.spy()
-        c.subscribe(spy, false)
-        controller0.set(nextState0)
-        
-        t.ok(spy.calledOnce)
-        t.ok(spy.calledOnceWith( nextState0 + initialState1 ))
-        t.end()
-    })
-})
-
 test('invariants', main => {
     main.test('subscribing to a non-reactive controller', t => {
-        const controller = new Value()
-        class ComputedValue extends computed(Value)({ controller }){ }
+        const controller = new ( Controller() )
+        class ComputedValue extends Computed(Value)({ controller }){ }
         try {
             new ComputedValue()
         } catch(e) {

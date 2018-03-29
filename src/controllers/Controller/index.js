@@ -1,11 +1,9 @@
-/** Creates a Model that extends the provided super class.
- * 
- */
+import Base from './Base'
 
-export default (SuperClass=class{}) => class Model extends SuperClass {
+export default Super => class extends (Super || Base) {
     constructor(initialState){
         super(initialState)
-
+        this._store = null
         this.create(initialState)
     }
     get store(){

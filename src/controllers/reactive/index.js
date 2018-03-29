@@ -1,4 +1,4 @@
-export default Model => class extends Model {
+export default Controller => class Reactive extends Controller {
     constructor(initialState){
         super(initialState)
         this._nextSubscriberId = 0
