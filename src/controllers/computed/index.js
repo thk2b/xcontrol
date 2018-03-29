@@ -31,7 +31,7 @@ export default Controller => (controllers, mapState=defaultMapState) => {
                     combinedState[name] = controller.store
                 }
             )
-            this.store = mapState(combinedState, initialState)
+            this.store = mapState(combinedState, this.store)
         }
         unsubscribe(){
             Object.values(this._subscriptions).forEach(
