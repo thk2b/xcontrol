@@ -23,6 +23,6 @@ export default Controller => class Reactive extends Controller {
         super.store = newState
         this._subscribers && Object.values(this._subscribers).forEach(
             subscriber => subscriber(newState, this.store)
-        )   
+        )
     }
 }
