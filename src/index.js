@@ -1,7 +1,5 @@
 export { default as Model } from './models/Model'
 export { default as Controller } from './controllers/Controller'
 
-export { default as Reactive } from './controllers/reactive'
-export { default as computed } from './controllers/computed'
-// export { default as subscribed } from './controllers/subscribed'
-// export { default as withActions } from './controllers/withActions'
+export { default as Reactive } from './controllers/Reactive'
+export { default as Computed } from './controllers/Computed'
