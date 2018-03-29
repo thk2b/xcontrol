@@ -38,7 +38,14 @@ test('Computed(Value)', main => {
                     { controller0, controller1 }, spy
                 ){}
                 const c = new ComputedValue(initialState0)
-                t.ok(spy.calledOnceWith(combinedInitialStates, initialState0), 'should be passed the combined state')
+                
+                t.ok(spy.calledOnceWith(combinedInitialStates, initialState0), 'should be passed the combined state and initial state')
+
+                const prevState = c.state
+                t.ok(prevState, 'should be defined')
+                controller0.set(initialState0)
+                t.ok(spy.calledOnceWith(combinedInitialStates, prevState), 'should be passed the combined state and previous state')
+
                 t.end()
             })
             t.test('should set the store to the result of mapState', t => {
