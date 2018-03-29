@@ -33,18 +33,18 @@ test('Computed(Value)', main => {
         })
         t.test('custom mapState', t => {
             t.test('is given the correct arguments', t => {
-                const spy = sinon.spy()
+                const mapStateToProps = (state, initialState, prevState) => state
+                const spy = sinon.spy(mapStateToProps)
                 class ComputedValue extends Computed(Value)(
                     { controller0, controller1 }, spy
                 ){}
                 const c = new ComputedValue(initialState0)
                 
-                t.ok(spy.calledOnceWith(combinedInitialStates, initialState0), 'should be passed the combined state and initial state')
-
-                const prevState = c.state
-                t.ok(prevState, 'should be defined')
+                t.ok(spy.calledOnceWithExactly(combinedInitialStates, initialState0, undefined), 'should be passed the combined state and initial state')
+                
+                const prevState = c.store
                 controller0.set(initialState0)
-                t.ok(spy.calledOnceWith(combinedInitialStates, prevState), 'should be passed the combined state and previous state')
+                t.ok(spy.calledWith(combinedInitialStates, initialState0, prevState), 'should be passed the combined state and previous state')
 
                 t.end()
             })
