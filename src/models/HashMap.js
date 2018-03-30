@@ -11,9 +11,14 @@ export default class HashMap extends Model {
         }
     }
     get = key => this.store[key] || null
-    delete = keys => Array.isArray(keys)
-        ? keys.forEach( key => {
-            delete this.store[key]
-        })
-        : delete this.store[keys]            
+    delete = keys => {
+        if(! Array.isArray(keys)){
+            keys = [keys]
+        }
+        this.store = Object.keys(this.store).reduce(
+            (nextState, key) => keys.includes(key)
+                ? nextState
+                : { ...nextState, [key]: this.store[key] }
+        , { })
+    }       
 }

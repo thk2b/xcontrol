@@ -1,4 +1,5 @@
 import test from 'tape'
+import sinon from 'sinon'
 
 import HashMap from '../HashMap'
 import Model from '../Model'
@@ -46,16 +47,32 @@ test('HashMap', main => {
             t.end()
         })        
     })
-    main.test('delete', t => {
-        const hm = new HashMap(initialState)
-        
+    main.test('delete', t => {        
         t.test('should remove the value at key', t => {
+            const hm = new HashMap(initialState)
             const key = 'a'
             hm.delete(key)
             t.equal(hm.get(key), null)
             const expectedState = initialState
             delete expectedState[key]
             t.deepEqual(hm.store, expectedState)
+            t.end()
+        })
+        t.test('should remove several keys', t => {
+            const hm = new HashMap({ a: 1, b: 2, c: 3 })
+            const keys = ['a', 'b']
+            hm.delete(keys)
+            t.deepEqual(hm.store, { c: 3 }, 'should have deleted keys')
+            t.end()
+        })
+        t.test('should notify subscribers', t => {
+            const hm = new HashMap({ a: 1, b: 2, c: 3 })
+            const keys = ['a', 'b']
+            const spy = sinon.spy()
+            
+            hm.subscribe(spy, false)
+            hm.delete(keys)
+            t.ok(spy.calledOnceWith({ c: 3 }), 'should notify subscribers')
             t.end()
         })
     })
