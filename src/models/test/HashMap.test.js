@@ -11,6 +11,7 @@ test('HashMap', main => {
     main.test('constructor', t => {
         const hm = new HashMap(initialState)
         t.ok(hm instanceof Model, 'should extend Model')
+        t.deepEqual(hm.store, initialState, 'should set initial state')
         t.end()
     })
     main.test('get', t => {
