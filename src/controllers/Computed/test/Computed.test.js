@@ -74,6 +74,12 @@ test('Computed(Value)', main => {
                 t.end()
             })
         })
+        t.test('renaming controllers', t => {
+            class ComputedValue extends Computed(Value)({ customName: controller0 }){}
+            const c = new ComputedValue()
+            t.deepEqual(c.store, { customName: initialState0 })
+            t.end()
+        })
     })
     main.test('updating store', t => {
         const controller0 = new Value(initialState0)
