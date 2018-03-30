@@ -1,6 +1,9 @@
 import Model from './Model'
 
 export default class HashMap extends Model {
+    constructor(initialState = {}){
+        super(initialState)
+    }
     set(object){
         this.store = {
             ...this.store,
