@@ -26,7 +26,7 @@ export default class List extends Model {
         this.store = this.store.filter(
             (el, i) => !indices.includes(i)
         )
-        return length === this.store.length
+        return length !== this.store.length
     }
     pop = (index=this.store.length-1) => {
         const { store } = this

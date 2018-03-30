@@ -55,13 +55,15 @@ test('List', main => {
         })
         t.test('remove multiple elements', t => {
             const l = new List(initialState)
-            l.remove([0, 2])
+            const didRemove = l.remove([0, 2])
+            t.equal(didRemove, true, 'should return true')
             t.deepEqual(l.store, [2])
             t.end() 
         })
         t.test('remove an invalid index', t => {
             const l = new List(initialState)
-            l.remove()
+            const didRemove = l.remove()
+            t.equal(didRemove, false, 'should return false')
             t.deepEqual(l.store, initialState)
             t.end()
         })
