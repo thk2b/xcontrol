@@ -10,8 +10,10 @@ export default class HashMap extends Model {
             ...object
         }
     }
-    get = key => this.store[key] || null
-    delete = keys => {
+    get(key){
+        return this.store[key] || null
+    }
+    delete(keys) {
         if(! Array.isArray(keys)){
             keys = [keys]
         }

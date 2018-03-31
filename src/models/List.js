@@ -15,10 +15,10 @@ export default class List extends Model {
         ]
         return true
     }
-    add = elements => {
+    add(elements){
         return this.insert(this.store.length, elements)
     }
-    remove = indices => {
+    remove(indices){
         if(!Array.isArray(indices)){
             indices = [ indices ]
         }
@@ -28,12 +28,12 @@ export default class List extends Model {
         )
         return length !== this.store.length
     }
-    pop = (index=this.store.length-1) => {
+    pop(index=this.store.length-1){
         const { store } = this
         this.remove(index)
         return store[index]
     }
-    shift = () => {
+    shift(){
         return this.pop(0)
     }
 }
