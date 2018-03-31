@@ -1,5 +1,5 @@
 # xcontrol
-A lightweight flux interpretation.
+A lightweight state managment library for browsers and node.
 
 ## Related packages
 - [react-xcontrol](https://github.com/thk2b/react-xcontrol) seamless react bindings.
