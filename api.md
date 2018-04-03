@@ -55,14 +55,14 @@ Returns `super.delete`
 import { Computed} from 'xcontrol'
 import Reactive from 'xcontrol/controllers/Computed'
 ```
-A function that returns a function (refered to as `bindControllers`)
+A function that returns a function (refered to as `bindControllers`).
 `bindControllers` takes controller instances and a mapState function, and returns a `Computed` class extending the Super class provided as the initial argument.
 
 ### Arguments
 - `Super` {class}
 The class to extend. Must be a `Controller`.
 
-`BindControllers arguments`:
+Returns a function that takes the following arguments:
 - controllers {Object}
 An object with keys being the controller's name in the computed state and values being controller instances.
 
