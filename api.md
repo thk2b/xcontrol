@@ -130,7 +130,7 @@ Stores a list of values.
 
 ## HashMap
 
-Re
+Represents a key: value store.
 
 |method|arguments|returns|description|
 |------|------|---------|------------|
