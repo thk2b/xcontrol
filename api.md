@@ -69,17 +69,17 @@ An object with keys being the controller's name in the computed state and values
 - mapState {Function: (nextCombinedState, initialState, state) => nextState | undefined}
 A function that will recieve three arguments whenever any of the provided controllers updates:
 
-1- Combined state of all controllers 
+  1) Combined state of all controllers 
 
-Each key in the combined state corresponds to the name asociated to the controller passed in the previous argument, and the value is the controller's state.
+      Each key in the combined state corresponds to the name asociated to the controller passed in the previous argument, and the value is the controller's state.
 
-2- Initial state
+  2) Initial state
 
-The state provided when the controller was instantiated with `new`
+      The state provided when the controller was instantiated with `new`
 
-3- State
+  3) State
 
-The controller's current state
+      The controller's current state
 
-Based on these three parameters, return the state of the computed controller. The computed controller's store is set to the return value of this function.
+    Based on these three parameters, return the state of the computed controller. The computed controller's store is set to the return value of this function.
 
