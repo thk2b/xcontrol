@@ -17,16 +17,20 @@ A function that returns a `Controller` class extending the optional Super class 
 
 ### Arguments
 - `Super` {class | undefined}
+
 Optional class to be extend.
 
 ### Getters and Setters
 - `set store(nextState)`
+
 Sets the controller's store
 
 - `get store`
+
 Returns the controller's store
 
 - `delete`
+
 Sets the store to `null`
 
 ## `Reactive`
@@ -38,16 +42,20 @@ A function that returns a `Reactive` class extending the Super class provided as
 
 ### Arguments
 - `Super` {class}
+
 The class to be made reactive. Must be a `Controller`.
 
 ### Getters and Setters
 - `set store(nextState)`
+
 Sets `super.store` and notifies all subscribers with the next state.
 
 - `get store`
+
 Returns `super.store`
 
 - `delete`
+
 Returns `super.delete`
 
 ## `Computed`
@@ -60,14 +68,17 @@ A function that returns a function (refered to as `bindControllers`).
 
 ### Arguments
 - `Super` {class}
+
 The class to extend. Must be a `Controller`.
 
 Returns a function that takes the following arguments:
 - controllers {Object}
+
 An object with keys being the controller's name in the computed state and values being controller instances.
 
 - mapState {Function: (nextCombinedState, initialState, state) => nextState | undefined}
-A function that will recieve three arguments whenever any of the provided controllers updates:
+
+  A function that will recieve three arguments whenever any of the provided controllers updates:
 
   1) Combined state of all controllers 
 
