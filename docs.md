@@ -18,11 +18,14 @@ For instance, re-rendering the view or notifying a server through the network.
 - Models
 
 ## Basic ES6 techniques
-`xcontrol` heavily relies on prototypical inheritance.
+- Functional inheritance
+
+    `xcontrol` heavily relies on prototypical inheritance.
 Complex functionality and reactivity is added to basic classes through the `extend` keyword.
 However, the `extend` keyword cannot be chained multiple times as in `class A extends B extends C {...}`.
 To allow composing multiple classes together, most classes are returned by functions.
 Consider this example
+- Using `super` to override methods
 
 ```js
 class A { a(){ console.log('a') }}
