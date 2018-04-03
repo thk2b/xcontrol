@@ -4,11 +4,20 @@
 
 A major difficulty when developping applications is responding to changes in application state.
 When the state changes, other aspects of the application have to be updated.
-For instance, re-rendering the view or notifying a server through the network. These are grouped under the umbrella-term
-side-effects.
+For instance, re-rendering the view or notifying a server through the network.
+
+`xcontrol` provides:
+- a mechanism for linking application state to side effects
+- reusable implementations of common data structures
+- an ecosystem for integrating application-specific controllers to existing third party tools and libraries
 
 # Concepts
-## ES6 techniques
+- Controllers
+  - Reactive Controllers
+  - Computed Controllers
+- Models
+
+## Basic ES6 techniques
 `xcontrol` heavily relies on prototypical inheritance.
 Complex functionality and reactivity is added to basic classes through the `extend` keyword.
 However, the `extend` keyword cannot be chained multiple times as in `class A extends B extends C {...}`.
@@ -37,6 +46,11 @@ The most basic controller has getters and setters for the `store` property, and 
 
 To set a controller's store, set `this.store = nextState` or `controllerInstance.store = nextState`.
 cf `src/controllers/Controller`
+
+Methods defined on controllers are refered to as actions. These may update the store or cause side effects.
+Actions that only update the store are considered pure. On the other hand, unpure actions have side effects, and are therefore more difficult to manage. Aim at having as little unpure actions as possibe.
+
+Lastly, controllers can cause actions from other controllers.
 
 ### The `Reactive` Controller
 Reactivity plays a central role in `xcontrol`.
