@@ -23,4 +23,5 @@ For instance, re-rendering the view or notifying a server through the network.
 - an ecosystem for integrating application-specific controllers to existing third party tools and libraries (such as `react-xcontrol`, `socket.io-client-xcontrol`, ...)
 
 [Documentation](https://github.com/thk2b/xcontrol/blob/master/docs.md)
+
 [API](https://github.com/thk2b/xcontrol/blob/master/api.md)
