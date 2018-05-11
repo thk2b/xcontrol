@@ -1,6 +1,8 @@
 # xcontrol
 A lightweight state management library for browsers and node.
 
+It is currently an experimental project.
+
 ## Related packages
 - [react-xcontrol](https://github.com/thk2b/react-xcontrol) seamless react bindings.
 - [xcontrol-examples](https://github.com/thk2b/xcontrol-examples) several complete examples.
