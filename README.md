@@ -19,5 +19,5 @@ For instance, re-rendering the view or notifying a server through the network.
 
 `xcontrol` provides:
 - a mechanism for linking application state to side effects
-- reusable implementations of common data structures
-- an ecosystem for integrating application-specific controllers to existing third party tools and libraries
+- reusable implementations of common data structures (`HashMap`, `List`, ...)
+- an ecosystem for integrating application-specific controllers to existing third party tools and libraries (such as `react-xcontrol`, `socket.io-client-xcontrol`, ...)
