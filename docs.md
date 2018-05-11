@@ -1,16 +1,3 @@
-# Motivation
-
-`xcontrol` is a javascript state managment library.
-
-A major difficulty when developping applications is responding to changes in application state.
-When the state changes, other aspects of the application have to be updated.
-For instance, re-rendering the view or notifying a server through the network.
-
-`xcontrol` provides:
-- a mechanism for linking application state to side effects
-- reusable implementations of common data structures
-- an ecosystem for integrating application-specific controllers to existing third party tools and libraries
-
 # Concepts
 - Controllers
   - Reactive Controllers
