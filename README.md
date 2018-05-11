@@ -22,6 +22,8 @@ For instance, re-rendering the view or notifying a server through the network.
 - reusable implementations of common data structures (`HashMap`, `List`, ...)
 - an ecosystem for integrating application-specific controllers to existing third party tools and libraries (such as `react-xcontrol`, `socket.io-client-xcontrol`, ...)
 
+## Learn more
+
 [Documentation](https://github.com/thk2b/xcontrol/blob/master/docs.md)
 
 [API](https://github.com/thk2b/xcontrol/blob/master/api.md)
