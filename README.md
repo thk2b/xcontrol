@@ -1,3 +1,5 @@
+`npm install --save xcontrol`
+
 # xcontrol
 A lightweight state management library for browsers and node.
 
